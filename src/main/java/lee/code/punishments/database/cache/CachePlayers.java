@@ -42,7 +42,9 @@ public class CachePlayers extends DatabaseHandler {
   public void unbanPlayer(UUID uuid) {
     final PlayerTable playerTable = getPlayerTable(uuid);
     playerTable.setBanned(false);
+    playerTable.setTempBanned(false);
     playerTable.setBanReason(null);
+    playerTable.setTempBanReason(null);
     updatePlayerDatabase(playerTable);
   }
 

@@ -14,3 +14,7 @@ commands:
     description: Unban a target player.
     permission: punishments.command.unban
     usage: "/unban &f<player>"
+  kick:
+    description: Kick a target player from the server.
+    permission: punishments.command.kick
+    usage: "/kick &f<player> <reason>"
