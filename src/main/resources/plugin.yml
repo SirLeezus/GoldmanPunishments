@@ -1,0 +1,16 @@
+name: GoldmanPunishments
+version: ${version}
+main: lee.code.punishments.Punishments
+api-version: 1.20
+author: Lee
+folia-supported: true
+depend: [GoldmanPlayerData]
+commands:
+  ban:
+    description: Ban a target player from the server.
+    permission: punishments.command.ban
+    usage: "/ban &f<player> <reason>"
+  unban:
+    description: Unban a target player.
+    permission: punishments.command.unban
+    usage: "/unban &f<player>"
