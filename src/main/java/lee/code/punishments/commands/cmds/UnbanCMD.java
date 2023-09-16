@@ -32,12 +32,12 @@ public class UnbanCMD extends CustomCommand {
 
   @Override
   public boolean performAsync() {
-    return true;
+    return false;
   }
 
   @Override
   public boolean performAsyncSynchronized() {
-    return true;
+    return false;
   }
 
   @Override
