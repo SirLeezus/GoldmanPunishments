@@ -16,9 +16,10 @@ public enum Lang {
   COMMAND_KICK_MESSAGE("&cYou have been kicked for&7:\n\n&e{0}"),
   COMMAND_BAN_KICK_MESSAGE("&cYou have been permanently banned for&7:\n\n&e{0}"),
   COMMAND_MUTE_TARGET_MESSAGE("&cYou have been permanently muted for&7: &e{0}"),
-  COMMAND_TEMP_MUTE_TARGET_MESSAGE("&cYou have been muted for {0} for&7: &e{1}"),
+  COMMAND_TEMP_MUTE_TARGET_MESSAGE("&cYou have been muted for {0} &cfor&7: &e{1}"),
   COMMAND_TEMP_MUTE_BROADCAST("&cThe player &6{0} &chas been muted for {1} &cfor&7: &e{2}"),
   COMMAND_MUTE_BROADCAST("&cThe player &6{0} &chas been permanently muted for&7: &e{1}"),
+  COMMAND_UNMUTE_BROADCAST("&cThe player &6{0} &chas been unmuted."),
   COMMAND_TEMP_BAN_KICK_MESSAGE("&cYou are banned for {0} &cfor&7:\n\n&e{1}"),
   COMMAND_TEMP_BAN_BROADCAST("&cThe player &6{0} &chas been banned for {1} &cfor&7: &e{2}"),
   ERROR_ONE_COMMAND_AT_A_TIME("&cYou're currently processing another command, please wait for it to finish."),
@@ -28,6 +29,7 @@ public enum Lang {
   ERROR_NOT_BANNED("&cThe player &6{0} &cis not banned."),
   ERROR_ALREADY_BANNED("&cThe player &6{0} &cis already banned."),
   ERROR_ALREADY_MUTED("&cThe player &6{0} &cis already muted."),
+  ERROR_NOT_MUTED("&cThe player &6{0} &cis not muted."),
   ;
   @Getter private final String string;
 

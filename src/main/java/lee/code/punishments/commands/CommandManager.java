@@ -33,6 +33,7 @@ public class CommandManager {
     commands.add(new KickCMD(punishments));
     commands.add(new MuteCMD(punishments));
     commands.add(new TempMuteCMD(punishments));
+    commands.add(new UnmuteCMD(punishments));
   }
 
   public void perform(CommandSender sender, String[] args, CustomCommand customCommand, Command command) {

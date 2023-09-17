@@ -10,6 +10,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
+import java.util.UUID;
+
 public class ChatListener implements Listener {
   private final Punishments punishments;
 
@@ -21,9 +23,19 @@ public class ChatListener implements Listener {
   public void onMutedChat(AsyncChatEvent e) {
     final CachePlayers cachePlayers = punishments.getCacheManager().getCachePlayers();
     final Player player = e.getPlayer();
-    if (!cachePlayers.isMuted(player.getUniqueId())) return;
+    final UUID uuid = player.getUniqueId();
+    if (!cachePlayers.isMuted(uuid)) return;
+    if (cachePlayers.isTempMuted(uuid)) {
+      if (cachePlayers.isTempMuteOver(uuid)) {
+        cachePlayers.unmutePlayer(uuid);
+        return;
+      }
+      e.setCancelled(true);
+      player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_TEMP_MUTE_TARGET_MESSAGE.getComponent(new String[]{CoreUtil.parseTime(cachePlayers.getTempMuteTime(uuid)), cachePlayers.getTempMuteReason(uuid)})));
+      return;
+    }
     e.setCancelled(true);
-    player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_MUTE_TARGET_MESSAGE.getComponent(new String[]{cachePlayers.getMuteReason(player.getUniqueId())})));
+    player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_MUTE_TARGET_MESSAGE.getComponent(new String[]{cachePlayers.getMuteReason(uuid)})));
   }
 
   @EventHandler
@@ -32,8 +44,18 @@ public class ChatListener implements Listener {
     if (!CoreUtil.getMuteCommands().contains(cmd)) return;
     final CachePlayers cachePlayers = punishments.getCacheManager().getCachePlayers();
     final Player player = e.getPlayer();
-    if (!cachePlayers.isMuted(player.getUniqueId())) return;
+    final UUID uuid = player.getUniqueId();
+    if (!cachePlayers.isMuted(uuid)) return;
+    if (cachePlayers.isTempMuted(uuid)) {
+      if (cachePlayers.isTempMuteOver(uuid)) {
+        cachePlayers.unmutePlayer(uuid);
+        return;
+      }
+      e.setCancelled(true);
+      player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_TEMP_MUTE_TARGET_MESSAGE.getComponent(new String[]{CoreUtil.parseTime(cachePlayers.getTempMuteTime(uuid)), cachePlayers.getTempMuteReason(uuid)})));
+      return;
+    }
     e.setCancelled(true);
-    player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_MUTE_TARGET_MESSAGE.getComponent(new String[]{cachePlayers.getMuteReason(player.getUniqueId())})));
+    player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_MUTE_TARGET_MESSAGE.getComponent(new String[]{cachePlayers.getMuteReason(uuid)})));
   }
 }

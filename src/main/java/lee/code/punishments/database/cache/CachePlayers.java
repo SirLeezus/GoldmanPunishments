@@ -49,6 +49,32 @@ public class CachePlayers extends DatabaseHandler {
     updatePlayerDatabase(playerTable);
   }
 
+  public void unmutePlayer(UUID uuid) {
+    final PlayerTable playerTable = getPlayerTable(uuid);
+    playerTable.setMuted(false);
+    playerTable.setTempMuted(false);
+    playerTable.setMutedReason(null);
+    playerTable.setTempMutedReason(null);
+    playerTable.setWhoMutedPlayer(null);
+    updatePlayerDatabase(playerTable);
+  }
+
+  public boolean isTempMuted(UUID uuid) {
+    return getPlayerTable(uuid).isTempMuted();
+  }
+
+  public boolean isTempMuteOver(UUID uuid) {
+    return getPlayerTable(uuid).getTempMutedTime() < System.currentTimeMillis();
+  }
+
+  public long getTempMuteTime(UUID uuid) {
+    return Math.max(getPlayerTable(uuid).getTempMutedTime() - System.currentTimeMillis(), 0);
+  }
+
+  public String getTempMuteReason(UUID uuid) {
+    return getPlayerTable(uuid).getTempMutedReason();
+  }
+
   public String getMuteReason(UUID uuid) {
     final PlayerTable playerTable = getPlayerTable(uuid);
     if (playerTable.getMutedReason() != null) return playerTable.getMutedReason();

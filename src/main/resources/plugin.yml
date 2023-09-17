@@ -30,3 +30,7 @@ commands:
     description: Temporarily mute a target player from chatting.
     permission: punishments.command.tempmute
     usage: "/tempmute &f<player> <time> <reason>"
+  unmute:
+    description: Unmute a target player.
+    permission: punishments.command.unmute
+    usage: "/unmute &f<player>"
