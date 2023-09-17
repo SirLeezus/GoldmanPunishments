@@ -31,6 +31,9 @@ public class PlayerTable {
   @DatabaseField(columnName = "temp_ban_reason")
   private String tempBanReason;
 
+  @DatabaseField(columnName = "who_banned_player")
+  private String whoBannedPlayer;
+
   @DatabaseField(columnName = "muted")
   private boolean muted;
 
@@ -45,6 +48,9 @@ public class PlayerTable {
 
   @DatabaseField(columnName = "temp_muted_reason")
   private String tempMutedReason;
+
+  @DatabaseField(columnName = "who_muted_player")
+  private String whoMutedPlayer;
 
   public PlayerTable(UUID uniqueId) {
     this.uniqueId = uniqueId;

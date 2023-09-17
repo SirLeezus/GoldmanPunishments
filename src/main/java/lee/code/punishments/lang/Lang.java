@@ -9,6 +9,7 @@ import net.kyori.adventure.text.Component;
 public enum Lang {
   PREFIX("&2&lPunishments &6➔ "),
   USAGE("&6&lUsage: &e{0}"),
+  CONSOLE("Console"),
   COMMAND_BAN_BROADCAST("&cThe player &6{0} &chas been permanently banned for&7: &e{1}"),
   COMMAND_UNBAN_BROADCAST("&aThe player &6{0} &ahas been unbanned."),
   COMMAND_KICK_BROADCAST("&cThe player &6{0} &chas been kicked for&7: &e{1}"),

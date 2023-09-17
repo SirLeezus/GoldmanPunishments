@@ -8,7 +8,6 @@ import lee.code.punishments.database.CacheManager;
 import lee.code.punishments.lang.Lang;
 import lee.code.punishments.util.CoreUtil;
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -71,7 +70,8 @@ public class BanCMD extends CustomCommand {
     }
     final CacheManager cacheManager = punishments.getCacheManager();
     final String reason = CoreUtil.buildStringFromArgs(args, 1);
-    cacheManager.getCachePlayers().banPlayer(targetID, reason);
+    final String banner = (sender instanceof Player player) ? player.getName() : Lang.CONSOLE.getString();
+    cacheManager.getCachePlayers().banPlayer(targetID, reason, banner);
     CoreUtil.kickPlayerIfOnline(targetID, Lang.COMMAND_BAN_KICK_MESSAGE.getComponent(new String[]{reason}));
     Bukkit.getServer().sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_BAN_BROADCAST.getComponent(new String[]{ColorAPI.getNameColor(targetID, targetString), reason})));
   }

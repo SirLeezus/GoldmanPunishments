@@ -32,10 +32,11 @@ public class CachePlayers extends DatabaseHandler {
     createPlayerDatabase(playerTable);
   }
 
-  public void banPlayer(UUID uuid, String reason) {
+  public void banPlayer(UUID uuid, String reason, String banner) {
     final PlayerTable playerTable = getPlayerTable(uuid);
     playerTable.setBanned(true);
     playerTable.setBanReason(reason);
+    playerTable.setWhoBannedPlayer(banner);
     updatePlayerDatabase(playerTable);
   }
 
