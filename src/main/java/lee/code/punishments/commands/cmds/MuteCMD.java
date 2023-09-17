@@ -70,8 +70,8 @@ public class MuteCMD extends CustomCommand {
     }
     final CacheManager cacheManager = punishments.getCacheManager();
     final String reason = CoreUtil.buildStringFromArgs(args, 1);
-    final String banner = (sender instanceof Player player) ? player.getName() : Lang.CONSOLE.getString();
-    cacheManager.getCachePlayers().mutePlayer(targetID, reason, banner);
+    final String muter = (sender instanceof Player player) ? player.getName() : Lang.CONSOLE.getString();
+    cacheManager.getCachePlayers().mutePlayer(targetID, reason, muter);
     PlayerDataAPI.sendPlayerMessageIfOnline(targetID, Lang.PREFIX.getComponent(null).append(Lang.COMMAND_MUTE_TARGET_MESSAGE.getComponent(new String[]{reason})));
     Bukkit.getServer().sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_MUTE_BROADCAST.getComponent(new String[]{ColorAPI.getNameColor(targetID, targetString), reason})));
   }
