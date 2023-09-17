@@ -31,7 +31,7 @@ public class ChatListener implements Listener {
         return;
       }
       e.setCancelled(true);
-      player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_TEMP_MUTE_TARGET_MESSAGE.getComponent(new String[]{CoreUtil.parseTime(cachePlayers.getTempMuteTime(uuid)), cachePlayers.getTempMuteReason(uuid)})));
+      player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_TEMP_MUTE_TARGET_MESSAGE.getComponent(new String[]{CoreUtil.parseTime(cachePlayers.getTempMuteTime(uuid)), cachePlayers.getMuteReason(uuid)})));
       return;
     }
     e.setCancelled(true);
@@ -52,7 +52,7 @@ public class ChatListener implements Listener {
         return;
       }
       e.setCancelled(true);
-      player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_TEMP_MUTE_TARGET_MESSAGE.getComponent(new String[]{CoreUtil.parseTime(cachePlayers.getTempMuteTime(uuid)), cachePlayers.getTempMuteReason(uuid)})));
+      player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_TEMP_MUTE_TARGET_MESSAGE.getComponent(new String[]{CoreUtil.parseTime(cachePlayers.getTempMuteTime(uuid)), cachePlayers.getMuteReason(uuid)})));
       return;
     }
     e.setCancelled(true);

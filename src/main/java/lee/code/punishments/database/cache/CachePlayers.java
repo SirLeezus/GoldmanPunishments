@@ -1,21 +1,26 @@
 package lee.code.punishments.database.cache;
 
 import lee.code.punishments.database.DatabaseManager;
+import lee.code.punishments.database.cache.data.PunishmentListData;
 import lee.code.punishments.database.handlers.DatabaseHandler;
 import lee.code.punishments.database.tables.PlayerTable;
+import lombok.Getter;
 
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class CachePlayers extends DatabaseHandler {
+  @Getter private final PunishmentListData punishmentListData;
   private final ConcurrentHashMap<UUID, PlayerTable> playersCache = new ConcurrentHashMap<>();
 
   public CachePlayers(DatabaseManager databaseManager) {
     super(databaseManager);
+    this.punishmentListData = new PunishmentListData();
   }
 
   public void setPlayerTable(PlayerTable playerTable) {
     playersCache.put(playerTable.getUniqueId(), playerTable);
+    punishmentListData.cachePunishments(playerTable);
   }
 
   public boolean hasPlayerData(UUID uuid) {
@@ -37,7 +42,9 @@ public class CachePlayers extends DatabaseHandler {
     playerTable.setMuted(true);
     playerTable.setMutedReason(reason);
     playerTable.setWhoMutedPlayer(muter);
+    playerTable.setTimePunished(System.currentTimeMillis());
     updatePlayerDatabase(playerTable);
+    punishmentListData.addPunishmentList(playerTable);
   }
 
   public void tempMutePlayer(UUID uuid, String reason, long time, String muter) {
@@ -45,8 +52,10 @@ public class CachePlayers extends DatabaseHandler {
     playerTable.setTempMuted(true);
     playerTable.setTempMutedReason(reason);
     playerTable.setTempMutedTime(System.currentTimeMillis() + time);
+    playerTable.setTimePunished(System.currentTimeMillis());
     playerTable.setWhoMutedPlayer(muter);
     updatePlayerDatabase(playerTable);
+    punishmentListData.addPunishmentList(playerTable);
   }
 
   public void unmutePlayer(UUID uuid) {
@@ -56,7 +65,9 @@ public class CachePlayers extends DatabaseHandler {
     playerTable.setMutedReason(null);
     playerTable.setTempMutedReason(null);
     playerTable.setWhoMutedPlayer(null);
+    playerTable.setTimePunished(0);
     updatePlayerDatabase(playerTable);
+    punishmentListData.removePunishmentList(uuid);
   }
 
   public boolean isTempMuted(UUID uuid) {
@@ -71,10 +82,6 @@ public class CachePlayers extends DatabaseHandler {
     return Math.max(getPlayerTable(uuid).getTempMutedTime() - System.currentTimeMillis(), 0);
   }
 
-  public String getTempMuteReason(UUID uuid) {
-    return getPlayerTable(uuid).getTempMutedReason();
-  }
-
   public String getMuteReason(UUID uuid) {
     final PlayerTable playerTable = getPlayerTable(uuid);
     if (playerTable.getMutedReason() != null) return playerTable.getMutedReason();
@@ -86,12 +93,18 @@ public class CachePlayers extends DatabaseHandler {
     return playerTable.isMuted() || playerTable.isTempMuted();
   }
 
+  public String getWhoMuted(UUID uuid) {
+    return getPlayerTable(uuid).getWhoMutedPlayer();
+  }
+
   public void banPlayer(UUID uuid, String reason, String banner) {
     final PlayerTable playerTable = getPlayerTable(uuid);
     playerTable.setBanned(true);
     playerTable.setBanReason(reason);
     playerTable.setWhoBannedPlayer(banner);
+    playerTable.setTimePunished(System.currentTimeMillis());
     updatePlayerDatabase(playerTable);
+    punishmentListData.addPunishmentList(playerTable);
   }
 
   public void tempBanPlayer(UUID uuid, String reason, long time, String banner) {
@@ -100,7 +113,9 @@ public class CachePlayers extends DatabaseHandler {
     playerTable.setTempBanReason(reason);
     playerTable.setTempBanTime(System.currentTimeMillis() + time);
     playerTable.setWhoBannedPlayer(banner);
+    playerTable.setTimePunished(System.currentTimeMillis());
     updatePlayerDatabase(playerTable);
+    punishmentListData.addPunishmentList(playerTable);
   }
 
   public void unbanPlayer(UUID uuid) {
@@ -110,7 +125,9 @@ public class CachePlayers extends DatabaseHandler {
     playerTable.setBanReason(null);
     playerTable.setTempBanReason(null);
     playerTable.setWhoBannedPlayer(null);
+    playerTable.setTimePunished(0);
     updatePlayerDatabase(playerTable);
+    punishmentListData.removePunishmentList(uuid);
   }
 
   public boolean isBanned(UUID uuid) {
@@ -134,5 +151,13 @@ public class CachePlayers extends DatabaseHandler {
     final PlayerTable playerTable = getPlayerTable(uuid);
     if (playerTable.getBanReason() != null) return playerTable.getBanReason();
     else return playerTable.getTempBanReason();
+  }
+
+  public long getTimePunished(UUID uuid) {
+    return getPlayerTable(uuid).getTimePunished();
+  }
+
+  public String getWhoBanned(UUID uuid) {
+    return getPlayerTable(uuid).getWhoBannedPlayer();
   }
 }

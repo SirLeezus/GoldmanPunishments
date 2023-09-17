@@ -1,0 +1,3 @@
+punishments {
+  page brigadier:integer;
+}

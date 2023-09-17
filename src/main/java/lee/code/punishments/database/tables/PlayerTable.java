@@ -52,6 +52,9 @@ public class PlayerTable {
   @DatabaseField(columnName = "who_muted_player")
   private String whoMutedPlayer;
 
+  @DatabaseField(columnName = "time_punished")
+  private long timePunished;
+
   public PlayerTable(UUID uniqueId) {
     this.uniqueId = uniqueId;
   }

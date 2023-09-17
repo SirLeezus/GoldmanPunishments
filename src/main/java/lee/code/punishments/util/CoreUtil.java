@@ -1,8 +1,10 @@
 package lee.code.punishments.util;
 
+import lee.code.punishments.database.cache.CachePlayers;
 import lee.code.punishments.lang.Lang;
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
@@ -10,9 +12,8 @@ import org.bukkit.GameMode;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -77,5 +78,55 @@ public class CoreUtil {
     final Player onlineTarget = offlineTarget.getPlayer();
     if (onlineTarget == null) return;
     onlineTarget.kick(message);
+  }
+
+  public static <K, V extends Comparable<? super V>> HashMap<K, V> sortByValue(Map<K, V> hm, Comparator<V> comparator) {
+    final HashMap<K, V> temp = new LinkedHashMap<>();
+    hm.entrySet().stream()
+      .sorted(Map.Entry.comparingByValue(comparator))
+      .forEachOrdered(entry -> temp.put(entry.getKey(), entry.getValue()));
+    return temp;
+  }
+
+  public static Component createPageSelectionComponent(String command, int page) {
+    final Component next = Lang.NEXT_PAGE_TEXT.getComponent(null).hoverEvent(Lang.NEXT_PAGE_HOVER.getComponent(null)).clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, command + " " + (page + 1)));
+    final Component split = Lang.PAGE_SPACER_TEXT.getComponent(null);
+    final Component prev = Lang.PREVIOUS_PAGE_TEXT.getComponent(null).hoverEvent(Lang.PREVIOUS_PAGE_HOVER.getComponent(null)).clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, command + " " + (page - 1)));
+    return prev.append(split).append(next);
+  }
+
+  public static Component buildPunishmentHover(CachePlayers cachePlayers, UUID uuid) {
+    final StringBuilder hover = new StringBuilder(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_TITLE.getString());
+    if (cachePlayers.isTempBanned(uuid)) {
+      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_TEMP_BANNED.getString());
+      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_REMAINING_TIME.getString(new String[]{parseTime(cachePlayers.getTempBanTime(uuid))}));
+      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_WHO_PUNISHED.getString(new String[]{cachePlayers.getWhoBanned(uuid)}));
+      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_DATE_PUNISHED.getString(new String[]{parseDate(cachePlayers.getTimePunished(uuid))}));
+      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_REASON.getString(new String[]{cachePlayers.getBanReason(uuid)}));
+    } else if (cachePlayers.isBanned(uuid)) {
+      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_BANNED.getString());
+      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_WHO_PUNISHED.getString(new String[]{cachePlayers.getWhoBanned(uuid)}));
+      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_DATE_PUNISHED.getString(new String[]{parseDate(cachePlayers.getTimePunished(uuid))}));
+      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_REASON.getString(new String[]{cachePlayers.getBanReason(uuid)}));
+    } else if (cachePlayers.isTempMuted(uuid)) {
+      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_TEMP_MUTED.getString());
+      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_REMAINING_TIME.getString(new String[]{parseTime(cachePlayers.getTempMuteTime(uuid))}));
+      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_WHO_PUNISHED.getString(new String[]{cachePlayers.getWhoMuted(uuid)}));
+      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_DATE_PUNISHED.getString(new String[]{parseDate(cachePlayers.getTimePunished(uuid))}));
+      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_REASON.getString(new String[]{cachePlayers.getMuteReason(uuid)}));
+    } else if (cachePlayers.isMuted(uuid)) {
+      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_MUTED.getString());
+      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_WHO_PUNISHED.getString(new String[]{cachePlayers.getWhoMuted(uuid)}));
+      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_DATE_PUNISHED.getString(new String[]{parseDate(cachePlayers.getTimePunished(uuid))}));
+      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_REASON.getString(new String[]{cachePlayers.getMuteReason(uuid)}));
+    }
+    return parseColorComponent(hover.toString());
+  }
+
+  public static String parseDate(long time) {
+    final SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
+    sdf.setTimeZone(TimeZone.getTimeZone("America/Los_Angeles"));
+    final Date date = new Date(time);
+    return sdf.format(date);
   }
 }
