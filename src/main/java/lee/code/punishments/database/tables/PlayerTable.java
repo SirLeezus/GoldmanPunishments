@@ -26,7 +26,7 @@ public class PlayerTable {
   private boolean tempBanned;
 
   @DatabaseField(columnName = "temp_ban_time")
-  private boolean tempBanTime;
+  private long tempBanTime;
 
   @DatabaseField(columnName = "temp_ban_reason")
   private String tempBanReason;

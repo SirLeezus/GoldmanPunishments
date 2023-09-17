@@ -14,9 +14,12 @@ public enum Lang {
   COMMAND_KICK_BROADCAST("&cThe player &6{0} &chas been kicked for&7: &e{1}"),
   COMMAND_KICK_MESSAGE("&cYou have been kicked for&7:\n\n&e{0}"),
   COMMAND_BAN_KICK_MESSAGE("&cYou have been permanently banned for&7:\n\n&e{0}"),
+  COMMAND_TEMP_BAN_KICK_MESSAGE("&cYou are banned for {0} &cfor&7:\n\n&e{1}"),
+  COMMAND_TEMP_BAN_BROADCAST("&cThe player &6{0} &chas been banned for {1} &cfor&7: &e{2}"),
   ERROR_ONE_COMMAND_AT_A_TIME("&cYou're currently processing another command, please wait for it to finish."),
   ERROR_NO_PLAYER_DATA("&cCould not find any player data for &6{0}&c."),
   ERROR_PLAYER_NOT_ONLINE("&cThe player &6{0} &cis currently not online."),
+  ERROR_TEMP_BAN_ZERO("&cYou can't temp ban a player for &e0&6s&c."),
   ;
   @Getter private final String string;
 

@@ -14,6 +14,10 @@ commands:
     description: Unban a target player.
     permission: punishments.command.unban
     usage: "/unban &f<player>"
+  tempban:
+    description: Temporarily ban a target player from the server.
+    permission: punishments.command.tempban
+    usage: "/tempban &f<player> <time> <reason>"
   kick:
     description: Kick a target player from the server.
     permission: punishments.command.kick

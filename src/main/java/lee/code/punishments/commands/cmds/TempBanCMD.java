@@ -8,7 +8,6 @@ import lee.code.punishments.database.CacheManager;
 import lee.code.punishments.lang.Lang;
 import lee.code.punishments.util.CoreUtil;
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -16,19 +15,20 @@ import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-public class BanCMD extends CustomCommand {
+public class TempBanCMD extends CustomCommand {
   private final Punishments punishments;
 
-  public BanCMD(Punishments punishments) {
+  public TempBanCMD(Punishments punishments) {
     this.punishments = punishments;
   }
 
   @Override
   public String getName() {
-    return "ban";
+    return "tempban";
   }
 
   @Override
@@ -59,7 +59,7 @@ public class BanCMD extends CustomCommand {
 
   @Override
   public void performSender(CommandSender sender, String[] args, Command command) {
-    if (args.length < 2) {
+    if (args.length < 3) {
       sender.sendMessage(Lang.USAGE.getComponent(new String[]{command.getUsage()}));
       return;
     }
@@ -70,15 +70,23 @@ public class BanCMD extends CustomCommand {
       return;
     }
     final CacheManager cacheManager = punishments.getCacheManager();
-    final String reason = CoreUtil.buildStringFromArgs(args, 1);
-    cacheManager.getCachePlayers().banPlayer(targetID, reason);
-    CoreUtil.kickPlayerIfOnline(targetID, Lang.COMMAND_BAN_KICK_MESSAGE.getComponent(new String[]{reason}));
-    Bukkit.getServer().sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_BAN_BROADCAST.getComponent(new String[]{ColorAPI.getNameColor(targetID, targetString), reason})));
+    final String timeString = args[1];
+    final long time = CoreUtil.getMilliseconds(timeString);
+    if (time == 0) {
+      sender.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_TEMP_BAN_ZERO.getComponent(null)));
+      return;
+    }
+    final String timeFormatted = CoreUtil.parseTime(time);
+    final String reason = CoreUtil.buildStringFromArgs(args, 2);
+    cacheManager.getCachePlayers().tempBanPlayer(targetID, reason, time);
+    CoreUtil.kickPlayerIfOnline(targetID, Lang.COMMAND_TEMP_BAN_KICK_MESSAGE.getComponent(new String[]{timeFormatted, reason}));
+    Bukkit.getServer().sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_TEMP_BAN_BROADCAST.getComponent(new String[]{ColorAPI.getNameColor(targetID, targetString), timeFormatted, reason})));
   }
 
   @Override
   public List<String> onTabComplete(CommandSender sender, String[] args) {
     if (args.length == 1) return StringUtil.copyPartialMatches(args[0], CoreUtil.getOnlinePlayers(), new ArrayList<>());
+    else if (args.length == 2) return StringUtil.copyPartialMatches(args[1], Arrays.asList("1s", "1m", "1h", "1d", "1w"), new ArrayList<>());
     return new ArrayList<>();
   }
 }

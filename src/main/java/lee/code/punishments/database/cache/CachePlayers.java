@@ -39,6 +39,14 @@ public class CachePlayers extends DatabaseHandler {
     updatePlayerDatabase(playerTable);
   }
 
+  public void tempBanPlayer(UUID uuid, String reason, long time) {
+    final PlayerTable playerTable = getPlayerTable(uuid);
+    playerTable.setTempBanned(true);
+    playerTable.setTempBanReason(reason);
+    playerTable.setTempBanTime(System.currentTimeMillis() + time);
+    updatePlayerDatabase(playerTable);
+  }
+
   public void unbanPlayer(UUID uuid) {
     final PlayerTable playerTable = getPlayerTable(uuid);
     playerTable.setBanned(false);
@@ -51,6 +59,18 @@ public class CachePlayers extends DatabaseHandler {
   public boolean isBanned(UUID uuid) {
     final PlayerTable playerTable = getPlayerTable(uuid);
     return playerTable.isBanned() || playerTable.isTempBanned();
+  }
+
+  public boolean isTempBanned(UUID uuid) {
+    return getPlayerTable(uuid).isTempBanned();
+  }
+
+  public long getTempBanTime(UUID uuid) {
+    return Math.max(getPlayerTable(uuid).getTempBanTime() - System.currentTimeMillis(), 0);
+  }
+
+  public boolean isTempBanOver(UUID uuid) {
+    return getPlayerTable(uuid).getTempBanTime() < System.currentTimeMillis();
   }
 
   public String getBanReason(UUID uuid) {

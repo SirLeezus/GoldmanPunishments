@@ -4,6 +4,7 @@ import io.papermc.paper.threadedregions.scheduler.ScheduledTask;
 import lee.code.punishments.Punishments;
 import lee.code.punishments.commands.cmds.BanCMD;
 import lee.code.punishments.commands.cmds.KickCMD;
+import lee.code.punishments.commands.cmds.TempBanCMD;
 import lee.code.punishments.commands.cmds.UnbanCMD;
 import lee.code.punishments.lang.Lang;
 import lombok.Getter;
@@ -29,6 +30,7 @@ public class CommandManager {
   }
 
   private void storeCommands() {
+    commands.add(new TempBanCMD(punishments));
     commands.add(new BanCMD(punishments));
     commands.add(new UnbanCMD(punishments));
     commands.add(new KickCMD(punishments));
