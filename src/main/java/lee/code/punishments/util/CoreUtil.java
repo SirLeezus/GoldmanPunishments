@@ -1,6 +1,7 @@
 package lee.code.punishments.util;
 
 import lee.code.punishments.lang.Lang;
+import lombok.Getter;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
@@ -9,6 +10,7 @@ import org.bukkit.GameMode;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -17,6 +19,7 @@ import java.util.stream.Collectors;
 
 public class CoreUtil {
   private final static Pattern numberIntPattern = Pattern.compile("^[1-9]\\d*$");
+  @Getter private final static List<String> muteCommands = Arrays.asList("/msg", "/tell", "/whisper", "/mail");
 
   public static Component parseColorComponent(String text) {
     final LegacyComponentSerializer serializer = LegacyComponentSerializer.legacyAmpersand();

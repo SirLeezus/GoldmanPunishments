@@ -2,10 +2,7 @@ package lee.code.punishments.commands;
 
 import io.papermc.paper.threadedregions.scheduler.ScheduledTask;
 import lee.code.punishments.Punishments;
-import lee.code.punishments.commands.cmds.BanCMD;
-import lee.code.punishments.commands.cmds.KickCMD;
-import lee.code.punishments.commands.cmds.TempBanCMD;
-import lee.code.punishments.commands.cmds.UnbanCMD;
+import lee.code.punishments.commands.cmds.*;
 import lee.code.punishments.lang.Lang;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -34,6 +31,7 @@ public class CommandManager {
     commands.add(new BanCMD(punishments));
     commands.add(new UnbanCMD(punishments));
     commands.add(new KickCMD(punishments));
+    commands.add(new MuteCMD(punishments));
   }
 
   public void perform(CommandSender sender, String[] args, CustomCommand customCommand, Command command) {

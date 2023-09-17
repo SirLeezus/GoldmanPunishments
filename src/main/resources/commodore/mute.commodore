@@ -1,0 +1,5 @@
+mute {
+  player brigadier:string single_word {
+    reason brigadier:string greedy_phrase;
+  }
+}

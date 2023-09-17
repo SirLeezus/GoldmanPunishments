@@ -22,3 +22,7 @@ commands:
     description: Kick a target player from the server.
     permission: punishments.command.kick
     usage: "/kick &f<player> <reason>"
+  mute:
+    description: Mute a target player from chatting.
+    permission: punishments.command.mute
+    usage: "/mute &f<player> <reason>"

@@ -6,6 +6,7 @@ import lee.code.punishments.commands.CustomCommand;
 import lee.code.punishments.commands.TabCompletion;
 import lee.code.punishments.database.CacheManager;
 import lee.code.punishments.database.DatabaseManager;
+import lee.code.punishments.listeners.ChatListener;
 import lee.code.punishments.listeners.JoinListener;
 import lombok.Getter;
 import me.lucko.commodore.CommodoreProvider;
@@ -38,6 +39,7 @@ public class Punishments extends JavaPlugin {
 
   private void registerListeners() {
     getServer().getPluginManager().registerEvents(new JoinListener(this), this);
+    getServer().getPluginManager().registerEvents(new ChatListener(this), this);
   }
 
   private void registerCommands() {
