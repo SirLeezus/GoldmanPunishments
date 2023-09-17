@@ -1,0 +1,7 @@
+tempmute {
+  player brigadier:string single_word {
+    time brigadier:string single_word {
+      reason brigadier:string greedy_phrase;
+    }
+  }
+}

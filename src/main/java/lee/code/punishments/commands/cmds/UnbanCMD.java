@@ -4,7 +4,7 @@ import lee.code.colors.ColorAPI;
 import lee.code.playerdata.PlayerDataAPI;
 import lee.code.punishments.Punishments;
 import lee.code.punishments.commands.CustomCommand;
-import lee.code.punishments.database.CacheManager;
+import lee.code.punishments.database.cache.CachePlayers;
 import lee.code.punishments.lang.Lang;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -66,8 +66,12 @@ public class UnbanCMD extends CustomCommand {
       sender.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_NO_PLAYER_DATA.getComponent(new String[]{targetString})));
       return;
     }
-    final CacheManager cacheManager = punishments.getCacheManager();
-    cacheManager.getCachePlayers().unbanPlayer(targetID);
+    final CachePlayers cachePlayers = punishments.getCacheManager().getCachePlayers();
+    if (!cachePlayers.isBanned(targetID)) {
+      sender.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_NOT_BANNED.getComponent(new String[]{ColorAPI.getNameColor(targetID, targetString)})));
+      return;
+    }
+    cachePlayers.unbanPlayer(targetID);
     Bukkit.getServer().sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_UNBAN_BROADCAST.getComponent(new String[]{ColorAPI.getNameColor(targetID, targetString)})));
   }
 

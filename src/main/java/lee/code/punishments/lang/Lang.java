@@ -16,6 +16,8 @@ public enum Lang {
   COMMAND_KICK_MESSAGE("&cYou have been kicked for&7:\n\n&e{0}"),
   COMMAND_BAN_KICK_MESSAGE("&cYou have been permanently banned for&7:\n\n&e{0}"),
   COMMAND_MUTE_TARGET_MESSAGE("&cYou have been permanently muted for&7: &e{0}"),
+  COMMAND_TEMP_MUTE_TARGET_MESSAGE("&cYou have been muted for {0} for&7: &e{1}"),
+  COMMAND_TEMP_MUTE_BROADCAST("&cThe player &6{0} &chas been muted for {1} &cfor&7: &e{2}"),
   COMMAND_MUTE_BROADCAST("&cThe player &6{0} &chas been permanently muted for&7: &e{1}"),
   COMMAND_TEMP_BAN_KICK_MESSAGE("&cYou are banned for {0} &cfor&7:\n\n&e{1}"),
   COMMAND_TEMP_BAN_BROADCAST("&cThe player &6{0} &chas been banned for {1} &cfor&7: &e{2}"),
@@ -23,6 +25,9 @@ public enum Lang {
   ERROR_NO_PLAYER_DATA("&cCould not find any player data for &6{0}&c."),
   ERROR_PLAYER_NOT_ONLINE("&cThe player &6{0} &cis currently not online."),
   ERROR_TEMP_BAN_ZERO("&cYou can't temp ban a player for &e0&6s&c."),
+  ERROR_NOT_BANNED("&cThe player &6{0} &cis not banned."),
+  ERROR_ALREADY_BANNED("&cThe player &6{0} &cis already banned."),
+  ERROR_ALREADY_MUTED("&cThe player &6{0} &cis already muted."),
   ;
   @Getter private final String string;
 

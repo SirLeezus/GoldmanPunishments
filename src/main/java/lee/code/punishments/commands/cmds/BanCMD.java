@@ -5,6 +5,7 @@ import lee.code.playerdata.PlayerDataAPI;
 import lee.code.punishments.Punishments;
 import lee.code.punishments.commands.CustomCommand;
 import lee.code.punishments.database.CacheManager;
+import lee.code.punishments.database.cache.CachePlayers;
 import lee.code.punishments.lang.Lang;
 import lee.code.punishments.util.CoreUtil;
 import org.bukkit.Bukkit;
@@ -68,10 +69,14 @@ public class BanCMD extends CustomCommand {
       sender.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_NO_PLAYER_DATA.getComponent(new String[]{targetString})));
       return;
     }
-    final CacheManager cacheManager = punishments.getCacheManager();
+    final CachePlayers cachePlayers = punishments.getCacheManager().getCachePlayers();
+    if (cachePlayers.isBanned(targetID)) {
+      sender.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_ALREADY_BANNED.getComponent(new String[]{ColorAPI.getNameColor(targetID, targetString)})));
+      return;
+    }
     final String reason = CoreUtil.buildStringFromArgs(args, 1);
     final String banner = (sender instanceof Player player) ? player.getName() : Lang.CONSOLE.getString();
-    cacheManager.getCachePlayers().banPlayer(targetID, reason, banner);
+    cachePlayers.banPlayer(targetID, reason, banner);
     CoreUtil.kickPlayerIfOnline(targetID, Lang.COMMAND_BAN_KICK_MESSAGE.getComponent(new String[]{reason}));
     Bukkit.getServer().sendMessage(Lang.PREFIX.getComponent(null).append(Lang.COMMAND_BAN_BROADCAST.getComponent(new String[]{ColorAPI.getNameColor(targetID, targetString), reason})));
   }

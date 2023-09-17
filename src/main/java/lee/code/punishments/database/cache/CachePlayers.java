@@ -40,6 +40,15 @@ public class CachePlayers extends DatabaseHandler {
     updatePlayerDatabase(playerTable);
   }
 
+  public void tempMutePlayer(UUID uuid, String reason, long time, String muter) {
+    final PlayerTable playerTable = getPlayerTable(uuid);
+    playerTable.setTempMuted(true);
+    playerTable.setTempMutedReason(reason);
+    playerTable.setTempMutedTime(System.currentTimeMillis() + time);
+    playerTable.setWhoMutedPlayer(muter);
+    updatePlayerDatabase(playerTable);
+  }
+
   public String getMuteReason(UUID uuid) {
     final PlayerTable playerTable = getPlayerTable(uuid);
     if (playerTable.getMutedReason() != null) return playerTable.getMutedReason();
@@ -59,11 +68,12 @@ public class CachePlayers extends DatabaseHandler {
     updatePlayerDatabase(playerTable);
   }
 
-  public void tempBanPlayer(UUID uuid, String reason, long time) {
+  public void tempBanPlayer(UUID uuid, String reason, long time, String banner) {
     final PlayerTable playerTable = getPlayerTable(uuid);
     playerTable.setTempBanned(true);
     playerTable.setTempBanReason(reason);
     playerTable.setTempBanTime(System.currentTimeMillis() + time);
+    playerTable.setWhoBannedPlayer(banner);
     updatePlayerDatabase(playerTable);
   }
 
