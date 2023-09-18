@@ -15,6 +15,8 @@ public enum Lang {
   PAGE_SPACER_TEXT(" &e| "),
   NEXT_PAGE_HOVER("&6&lNext Page"),
   PREVIOUS_PAGE_HOVER("&6&lPrevious Page"),
+  COMMAND_CUFF_SUCCESS("&aYou successfully cuffed player &6{0}&a!"),
+  COMMAND_CUFF_TARGET_SUCCESS("&cYou have been cuffed!"),
   COMMAND_PUNISHMENTS_TITLE("&a--------- &e[ &2&lPunishments &e] &a----------"),
   COMMAND_PUNISHMENTS_LINE("&3{0}&7. {1}"),
   COMMAND_PUNISHMENT_LINE_TITLE("&a--------- &e[ &2&lPunishment &e] &a----------"),

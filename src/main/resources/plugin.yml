@@ -43,3 +43,7 @@ commands:
     permission: punishments.command.punishments
     usage: "/punishments &f<page>"
     aliases: [banlist]
+  cuff:
+    description: Cuff a target player.
+    permission: punishments.command.cuff
+    usage: "/cuff &f<player>"

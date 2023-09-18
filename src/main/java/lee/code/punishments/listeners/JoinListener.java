@@ -10,7 +10,7 @@ import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 
 import java.util.UUID;
 
-public class JoinListener  implements Listener {
+public class JoinListener implements Listener {
   private final Punishments punishments;
 
   public JoinListener(Punishments punishments) {

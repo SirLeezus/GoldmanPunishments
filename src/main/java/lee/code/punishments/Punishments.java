@@ -7,6 +7,7 @@ import lee.code.punishments.commands.TabCompletion;
 import lee.code.punishments.database.CacheManager;
 import lee.code.punishments.database.DatabaseManager;
 import lee.code.punishments.listeners.ChatListener;
+import lee.code.punishments.listeners.CuffListener;
 import lee.code.punishments.listeners.JoinListener;
 import lee.code.punishments.managers.PunishmentMessageManager;
 import lombok.Getter;
@@ -43,6 +44,7 @@ public class Punishments extends JavaPlugin {
   private void registerListeners() {
     getServer().getPluginManager().registerEvents(new JoinListener(this), this);
     getServer().getPluginManager().registerEvents(new ChatListener(this), this);
+    getServer().getPluginManager().registerEvents(new CuffListener(this), this);
   }
 
   private void registerCommands() {

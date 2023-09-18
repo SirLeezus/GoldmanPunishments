@@ -40,11 +40,15 @@ public class ChatListener implements Listener {
 
   @EventHandler
   public void onMutedCommand(PlayerCommandPreprocessEvent e) {
-    final String cmd = e.getMessage().contains(" ") ? e.getMessage().split(" ")[0] : e.getMessage();
-    if (!CoreUtil.getMuteCommands().contains(cmd)) return;
     final CachePlayers cachePlayers = punishments.getCacheManager().getCachePlayers();
     final Player player = e.getPlayer();
     final UUID uuid = player.getUniqueId();
+    if (cachePlayers.isCuffed(uuid)) {
+      e.setCancelled(true);
+      return;
+    }
+    final String cmd = e.getMessage().contains(" ") ? e.getMessage().split(" ")[0] : e.getMessage();
+    if (!CoreUtil.getMuteCommands().contains(cmd)) return;
     if (!cachePlayers.isMuted(uuid)) return;
     if (cachePlayers.isTempMuted(uuid)) {
       if (cachePlayers.isTempMuteOver(uuid)) {

@@ -55,6 +55,9 @@ public class PlayerTable {
   @DatabaseField(columnName = "time_punished")
   private long timePunished;
 
+  @DatabaseField(columnName = "cuffed")
+  private boolean cuffed;
+
   public PlayerTable(UUID uniqueId) {
     this.uniqueId = uniqueId;
   }

@@ -160,4 +160,14 @@ public class CachePlayers extends DatabaseHandler {
   public String getWhoBanned(UUID uuid) {
     return getPlayerTable(uuid).getWhoBannedPlayer();
   }
+
+  public boolean isCuffed(UUID uuid) {
+    return getPlayerTable(uuid).isCuffed();
+  }
+
+  public void setCuffed(UUID uuid, boolean result) {
+    final PlayerTable playerTable = getPlayerTable(uuid);
+    playerTable.setCuffed(result);
+    updatePlayerDatabase(playerTable);
+  }
 }

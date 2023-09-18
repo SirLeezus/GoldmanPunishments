@@ -1,0 +1,3 @@
+cuff {
+  player brigadier:string single_word;
+}
