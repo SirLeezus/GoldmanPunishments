@@ -8,6 +8,7 @@ import lee.code.punishments.database.CacheManager;
 import lee.code.punishments.database.DatabaseManager;
 import lee.code.punishments.listeners.ChatListener;
 import lee.code.punishments.listeners.JoinListener;
+import lee.code.punishments.managers.PunishmentMessageManager;
 import lombok.Getter;
 import me.lucko.commodore.CommodoreProvider;
 import me.lucko.commodore.file.CommodoreFileReader;
@@ -19,6 +20,7 @@ import java.io.IOException;
 public class Punishments extends JavaPlugin {
   @Getter private CacheManager cacheManager;
   @Getter private CommandManager commandManager;
+  @Getter private PunishmentMessageManager punishmentMessageManager;
   private DatabaseManager databaseManager;
 
   @Override
@@ -26,6 +28,7 @@ public class Punishments extends JavaPlugin {
     this.databaseManager = new DatabaseManager(this);
     this.cacheManager = new CacheManager(databaseManager);
     this.commandManager = new CommandManager(this);
+    this.punishmentMessageManager = new PunishmentMessageManager(this);
     databaseManager.initialize(false);
 
     registerListeners();

@@ -34,6 +34,7 @@ public class CommandManager {
     commands.add(new MuteCMD(punishments));
     commands.add(new TempMuteCMD(punishments));
     commands.add(new UnmuteCMD(punishments));
+    commands.add(new PunishmentCMD(punishments));
     commands.add(new PunishmentsCMD(punishments));
   }
 

@@ -34,7 +34,12 @@ commands:
     description: Unmute a target player.
     permission: punishments.command.unmute
     usage: "/unmute &f<player>"
+  punishment:
+    description: List punishment info about a player.
+    permission: punishments.command.punishment
+    usage: "/punishment &f<player>"
   punishments:
     description: List of all active punishments.
     permission: punishments.command.punishments
     usage: "/punishments &f<page>"
+    aliases: [banlist]

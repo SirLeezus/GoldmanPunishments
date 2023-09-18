@@ -95,34 +95,6 @@ public class CoreUtil {
     return prev.append(split).append(next);
   }
 
-  public static Component buildPunishmentHover(CachePlayers cachePlayers, UUID uuid) {
-    final StringBuilder hover = new StringBuilder(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_TITLE.getString());
-    if (cachePlayers.isTempBanned(uuid)) {
-      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_TEMP_BANNED.getString());
-      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_REMAINING_TIME.getString(new String[]{parseTime(cachePlayers.getTempBanTime(uuid))}));
-      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_WHO_PUNISHED.getString(new String[]{cachePlayers.getWhoBanned(uuid)}));
-      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_DATE_PUNISHED.getString(new String[]{parseDate(cachePlayers.getTimePunished(uuid))}));
-      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_REASON.getString(new String[]{cachePlayers.getBanReason(uuid)}));
-    } else if (cachePlayers.isBanned(uuid)) {
-      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_BANNED.getString());
-      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_WHO_PUNISHED.getString(new String[]{cachePlayers.getWhoBanned(uuid)}));
-      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_DATE_PUNISHED.getString(new String[]{parseDate(cachePlayers.getTimePunished(uuid))}));
-      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_REASON.getString(new String[]{cachePlayers.getBanReason(uuid)}));
-    } else if (cachePlayers.isTempMuted(uuid)) {
-      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_TEMP_MUTED.getString());
-      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_REMAINING_TIME.getString(new String[]{parseTime(cachePlayers.getTempMuteTime(uuid))}));
-      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_WHO_PUNISHED.getString(new String[]{cachePlayers.getWhoMuted(uuid)}));
-      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_DATE_PUNISHED.getString(new String[]{parseDate(cachePlayers.getTimePunished(uuid))}));
-      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_REASON.getString(new String[]{cachePlayers.getMuteReason(uuid)}));
-    } else if (cachePlayers.isMuted(uuid)) {
-      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_MUTED.getString());
-      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_WHO_PUNISHED.getString(new String[]{cachePlayers.getWhoMuted(uuid)}));
-      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_DATE_PUNISHED.getString(new String[]{parseDate(cachePlayers.getTimePunished(uuid))}));
-      hover.append(Lang.COMMAND_PUNISHMENTS_LINE_HOVER_REASON.getString(new String[]{cachePlayers.getMuteReason(uuid)}));
-    }
-    return parseColorComponent(hover.toString());
-  }
-
   public static String parseDate(long time) {
     final SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
     sdf.setTimeZone(TimeZone.getTimeZone("America/Los_Angeles"));

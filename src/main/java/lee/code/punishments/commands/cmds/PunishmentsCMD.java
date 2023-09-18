@@ -8,6 +8,7 @@ import lee.code.punishments.database.cache.CachePlayers;
 import lee.code.punishments.lang.Lang;
 import lee.code.punishments.util.CoreUtil;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickEvent;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -68,10 +69,10 @@ public class PunishmentsCMD extends CustomCommand {
       if (index >= players.size()) break;
       final UUID targetID = players.get(index);
 
-      lines.add(Lang.COMMAND_PUNISHMENTS_LINE.getComponent(new String[]{
-        String.valueOf(position),
-        ColorAPI.getNameColor(targetID, PlayerDataAPI.getName(targetID)),
-      }).hoverEvent(CoreUtil.buildPunishmentHover(cachePlayers, targetID)));
+      lines.add(Lang.COMMAND_PUNISHMENTS_LINE.getComponent(new String[]{String.valueOf(position), ColorAPI.getNameColor(targetID, PlayerDataAPI.getName(targetID))})
+        .hoverEvent(punishments.getPunishmentMessageManager().buildPunishmentHover(targetID))
+        .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/punishment " + PlayerDataAPI.getName(targetID)))
+      );
       position++;
     }
     if (lines.size() == 2) return;
