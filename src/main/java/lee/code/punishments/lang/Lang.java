@@ -17,6 +17,8 @@ public enum Lang {
   PREVIOUS_PAGE_HOVER("&6&lPrevious Page"),
   COMMAND_CUFF_SUCCESS("&aYou successfully cuffed player &6{0}&a!"),
   COMMAND_CUFF_TARGET_SUCCESS("&cYou have been cuffed!"),
+  COMMAND_UNCUFF_SUCCESS("&aYou successfully uncuffed player &6{0}&a!"),
+  COMMAND_UNCUFF_TARGET_SUCCESS("&aYou have been uncuffed!"),
   COMMAND_PUNISHMENTS_TITLE("&a--------- &e[ &2&lPunishments &e] &a----------"),
   COMMAND_PUNISHMENTS_LINE("&3{0}&7. {1}"),
   COMMAND_PUNISHMENT_LINE_TITLE("&a--------- &e[ &2&lPunishment &e] &a----------"),
@@ -54,6 +56,7 @@ public enum Lang {
   ERROR_NOT_CONSOLE_COMMAND("&cThis command does not work in console."),
   ERROR_NOT_PUNISHED_PLAYERS("&cThere are no players with a punishment active."),
   ERROR_PUNISHMENT_NOT_PUNISHED("&cThe player &6{0} &cdoes not have any active punishments."),
+  ERROR_UNCUFF_NOT_CUFFED("&cThe player &6{0} &cis not cuffed."),
   ;
   @Getter private final String string;
 

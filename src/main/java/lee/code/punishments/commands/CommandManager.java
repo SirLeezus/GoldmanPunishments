@@ -37,6 +37,7 @@ public class CommandManager {
     commands.add(new PunishmentCMD(punishments));
     commands.add(new PunishmentsCMD(punishments));
     commands.add(new CuffCMD(punishments));
+    commands.add(new UncuffCMD(punishments));
   }
 
   public void perform(CommandSender sender, String[] args, CustomCommand customCommand, Command command) {

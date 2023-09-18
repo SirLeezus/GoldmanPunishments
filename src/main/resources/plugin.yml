@@ -47,3 +47,7 @@ commands:
     description: Cuff a target player.
     permission: punishments.command.cuff
     usage: "/cuff &f<player>"
+  uncuff:
+    description: Uncuff a target player.
+    permission: punishments.command.uncuff
+    usage: "/uncuff &f<player>"
