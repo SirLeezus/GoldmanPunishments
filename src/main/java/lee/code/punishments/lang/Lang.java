@@ -57,6 +57,7 @@ public enum Lang {
   ERROR_NOT_PUNISHED_PLAYERS("&cThere are no players with a punishment active."),
   ERROR_PUNISHMENT_NOT_PUNISHED("&cThe player &6{0} &cdoes not have any active punishments."),
   ERROR_UNCUFF_NOT_CUFFED("&cThe player &6{0} &cis not cuffed."),
+  ERROR_CUFFED_MOVED("&cYou are cuffed so you can't move!"),
   ;
   @Getter private final String string;
 
