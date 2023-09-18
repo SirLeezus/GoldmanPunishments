@@ -48,6 +48,10 @@ public class PunishmentsCMD extends CustomCommand {
     final CachePlayers cachePlayers = punishments.getCacheManager().getCachePlayers();
     final Map<UUID, Long> sortedPunishments = CoreUtil.sortByValue(cachePlayers.getPunishmentListData().getAllPunishments(), Comparator.reverseOrder());
     final ArrayList<UUID> players = new ArrayList<>(sortedPunishments.keySet());
+    if (players.isEmpty()){
+      player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_NOT_PUNISHED_PLAYERS.getComponent(null)));
+      return;
+    }
     int index;
     int page = 0;
     final int maxDisplayed = 10;

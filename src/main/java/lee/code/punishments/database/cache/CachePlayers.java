@@ -67,7 +67,7 @@ public class CachePlayers extends DatabaseHandler {
     playerTable.setWhoMutedPlayer(null);
     playerTable.setTimePunished(0);
     updatePlayerDatabase(playerTable);
-    punishmentListData.removePunishmentList(uuid);
+    if (!isBanned(uuid)) punishmentListData.removePunishmentList(uuid);
   }
 
   public boolean isTempMuted(UUID uuid) {
@@ -127,7 +127,7 @@ public class CachePlayers extends DatabaseHandler {
     playerTable.setWhoBannedPlayer(null);
     playerTable.setTimePunished(0);
     updatePlayerDatabase(playerTable);
-    punishmentListData.removePunishmentList(uuid);
+    if (!isMuted(uuid)) punishmentListData.removePunishmentList(uuid);
   }
 
   public boolean isBanned(UUID uuid) {

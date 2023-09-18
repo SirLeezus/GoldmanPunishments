@@ -15,7 +15,7 @@ public enum Lang {
   PAGE_SPACER_TEXT(" &e| "),
   NEXT_PAGE_HOVER("&6&lNext Page"),
   PREVIOUS_PAGE_HOVER("&6&lPrevious Page"),
-  COMMAND_PUNISHMENTS_TITLE("&a----- &e[ &2&lPunishments &e] &a-----"),
+  COMMAND_PUNISHMENTS_TITLE("&a--------- &e[ &2&lPunishments &e] &a----------"),
   COMMAND_PUNISHMENTS_LINE("&3{0}&7. {1}"),
   COMMAND_PUNISHMENTS_LINE_HOVER_TITLE("&c&lPunishment\n"),
   COMMAND_PUNISHMENTS_LINE_HOVER_MUTED("&3Permanently Muted&7: &atrue\n"),
@@ -47,6 +47,7 @@ public enum Lang {
   ERROR_ALREADY_MUTED("&cThe player &6{0} &cis already muted."),
   ERROR_NOT_MUTED("&cThe player &6{0} &cis not muted."),
   ERROR_NOT_CONSOLE_COMMAND("&cThis command does not work in console."),
+  ERROR_NOT_PUNISHED_PLAYERS("&cThere are no players with a punishment active."),
   ;
   @Getter private final String string;
 
