@@ -1,6 +1,5 @@
 package lee.code.punishments.util;
 
-import lee.code.punishments.database.cache.CachePlayers;
 import lee.code.punishments.lang.Lang;
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
